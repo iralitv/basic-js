@@ -7,13 +7,14 @@ module.exports = function repeater( str, options ) {
         additionSeparator = ''
     } = options;
 
-    const addExprWithoutLastSeparator =
-        ( addition + additionSeparator )
-            .repeat(additionRepeatTimes)
-            .slice(0, -additionSeparator.length);
+    const multiplyAdditional = repeatStr(addition + additionSeparator, additionRepeatTimes, additionSeparator);
 
-    const addExpr = ( additionRepeatTimes < 2 ) ? addition : addExprWithoutLastSeparator;
+    const additionExpr = ( additionRepeatTimes < 2 ) ? addition : multiplyAdditional;
 
-    return ( str + addExpr + separator ).repeat(repeatTimes).slice( 0, -separator.length )
+    return repeatStr(str + additionExpr + separator, repeatTimes, separator)
 };
+
+function repeatStr (str, repeatTimes, separator) {
+    return str.repeat(repeatTimes).slice(0, -separator.length)
+}
   
